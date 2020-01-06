@@ -1,0 +1,42 @@
+{
+  "name": "paint-by-polygon",
+  "version": "1.0.0",
+  "description": "Paint By Polygons",
+  "main": "index.html",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamiestrachan/paint-by-polygon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamiestrachan/paint-by-polygon/issues"
+  },
+  "homepage": "https://github.com/jamiestrachan/paint-by-polygon#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-transform-default-import": "^1.0.0",
+    "jest": "^24.9.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": ["transform-default-import"]
+  }
+}

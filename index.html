@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Paint By Polygon</title>
+
+</head>
+<body>
+
+
+
+<p>
+    <img id="canvasSource" src="./images/3.jpg" alt="Canvas Source" />
+    <br />
+    <input type="number" value="1" id="steps" min="0">
+</p>
+
+<canvas id="area1">
+</canvas>
+
+<canvas id="area2">
+</canvas>
+
+
+<script type="module">
+import {generateSpread, roundToClosest} from './scripts/helpers.js';
+
+function generateImages() {
+    generateImage("area1",);
+    generateImage("area2", true);
+}
+
+function generateImage(canvasID, optimized = false) {
+    const steps = parseInt(document.getElementById("steps").value);
+
+    var canvas = document.getElementById(canvasID);
+    var context = canvas.getContext("2d");
+    var image = document.getElementById("canvasSource");
+    var imgWidth= image.width;
+    var imgHeight= image.height;
+    canvas.width= imgWidth;
+    canvas.height= imgHeight;
+    context.drawImage(image, 0, 0);
+
+    var imgd = context.getImageData(0, 0, imgWidth, imgHeight);
+    var pix = imgd.data;
+    // console.log(steps);
+    let spread = generateSpread(0, 255, steps);
+    // console.log(spread);
+    for (var i = 0, n = pix.length; i < n; i += 4) {
+        var grayscale;
+        if (optimized) {
+            grayscale = roundToClosest(pix[i] * .3 + pix[i+1] * .59 + pix[i+2] * .11, spread);
+        } else {
+            grayscale = roundToClosest((pix[i] + pix[i+1] + pix[i+2]) / 3, spread);
+        }
+        pix[i] = grayscale; // red
+        pix[i+1] = grayscale; // green
+        pix[i+2] = grayscale; // blue
+        // alpha
+    }
+    context.putImageData(imgd, 0, 0);
+
+
+
+
+
+
+};
+
+window.onload = generateImages;
+document.getElementById("steps").onchange = generateImages;
+
+
+</script>
+</body>
+</html>
